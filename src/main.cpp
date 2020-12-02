@@ -8,7 +8,7 @@
 		return false;
 	}
 
-	*path /= "MyFirstPlugin.log"sv;
+	*path /= "DontEatSpellTomes.log"sv;
 	auto sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(path->string(), true);
 #endif
 
@@ -24,10 +24,10 @@
 	spdlog::set_default_logger(std::move(log));
 	spdlog::set_pattern("%g(%#): [%^%l%$] %v"s);
 
-	logger::info("MyFirstPlugin v1.0.0");
+	logger::info("DontEatSpellTomes v1.0.0");
 
 	a_info->infoVersion = SKSE::PluginInfo::kVersion;
-	a_info->name = "MyFirstPlugin";
+	a_info->name = "DontEatSpellTomes";
 	a_info->version = 1;
 
 	if (a_skse->IsEditor()) {
@@ -47,7 +47,7 @@
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
-	logger::info("MyFirstPlugin loaded");
+	logger::info("DontEatSpellTomes loaded");
 
 	SKSE::Init(a_skse);
 

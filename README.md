@@ -1,4 +1,4 @@
-This is a basic plugin template for use with CommonLibSSE
+Prevents learning spells instantly from spell tomes
 
 ## Requirements
 * [CMake](https://cmake.org/)
@@ -9,6 +9,7 @@ This is a basic plugin template for use with CommonLibSSE
 * [Visual Studio Community 2019](https://visualstudio.microsoft.com/)
 	* C++ Clang tools for Windows
 	* Desktop development with C++
+* [Xbyak](https://github.com/herumi/xbyak)
 
 ## Register Visual Studio as a Generator
 * Open `x64 Native Tools Command Prompt`
@@ -17,8 +18,8 @@ This is a basic plugin template for use with CommonLibSSE
 
 ## Building
 ```
-git clone https://github.com/Ryan-rsm-McKenzie/ExamplePlugin-CommonLibSSE
-cd ExamplePlugin-CommonLibSSE
+git clone https://github.com/Exit-9B/Dont-Eat-Spell-Tomes
+cd Dont-Eat-Spell-Tomes
 git submodule update --init --recursive
 git submodule update --recursive --remote
 cmake -B build -S .

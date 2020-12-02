@@ -6,7 +6,7 @@ set(VCPKG_TARGET_TRIPLET "x64-windows-static" CACHE STRING "")
 # ---- Project ----
 
 project(
-	ExampleProject
+	DontEatSpellTomes
 	VERSION 1.0.0
 	LANGUAGES CXX
 )
@@ -38,7 +38,9 @@ set(Boost_USE_DEBUG_RUNTIME ON)
 
 if (MSVC)
 	add_compile_definitions(
-		_UNICODE
+		"$<$<BOOL:${MSVC}>:_UNICODE>"
+
+		SKSE_SUPPORT_XBYAK
 	)
 	
 	set(COMPILE_OPTIONS_DEBUG
@@ -114,6 +116,7 @@ endif()
 add_subdirectory(extern/CommonLibSSE CommonLibSSE)
 
 find_package(spdlog REQUIRED)
+find_path(XBYAK_INCLUDE_DIRS "xbyak/xbyak.h")
 
 # ---- Add source files ----
 
@@ -163,6 +166,7 @@ target_compile_options(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
 	PRIVATE 
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+		${XBYAK_INCLUDE_DIRS}
         $<INSTALL_INTERFACE:src>
 )
 

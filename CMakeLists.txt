@@ -122,13 +122,16 @@ find_path(XBYAK_INCLUDE_DIRS "xbyak/xbyak.h")
 
 set(headers
 	src/PCH.h
+	src/Offsets.h
 	src/Hooks.h
+	src/SpellTomeManager.h
 )
 
 set(sources
 	src/main.cpp
 	src/PCH.cpp
 	src/Hooks.cpp
+	src/SpellTomeManager.cpp
 )
 
 source_group(

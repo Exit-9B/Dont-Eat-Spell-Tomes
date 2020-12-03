@@ -4,5 +4,5 @@ public:
 	static void InstallHooks();
 
 private:
-	static void ReadSpellTome(RE::PlayerCharacter* a_player, RE::SpellItem* a_spell);
+	static void ReadSpellTome(RE::TESObjectBOOK* a_book, RE::SpellItem* a_spell);
 };

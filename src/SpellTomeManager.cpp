@@ -5,29 +5,30 @@
 void SpellTomeManager::InstallHooks()
 {
 	struct Patch : public Xbyak::CodeGenerator {
-		Patch(std::uintptr_t addr) {
+		Patch(std::uintptr_t addr)
+		{
 			Xbyak::Label hookaddr;
 			L(hookaddr);
 
+			mov(rcx, rdi);
 			mov(rax, addr);
 			call(rax);
-			xor_(rax, rax);
-			jmp(hookaddr.getAddress() + 0x109);
+
+			jmp(hookaddr.getAddress() + 0x65);
 		}
 	};
 	Patch patch{ SKSE::unrestricted_cast<std::uintptr_t>(ReadSpellTome) };
 	patch.ready();
+	assert(patch.getSize() <= 0x4F);
 
 	static REL::Relocation<std::uintptr_t> hook{ Offset::TESObjectBook_ProcessBook, 0xEF };
 	REL::safe_write(hook.address(), patch.getCode(), patch.getSize());
 }
 
-void SpellTomeManager::ReadSpellTome(
-	[[maybe_unused]] RE::PlayerCharacter* a_player,
-	RE::SpellItem* a_spell)
+void SpellTomeManager::ReadSpellTome(RE::TESObjectBOOK* a_book, RE::SpellItem* a_spell)
 {
 	logger::info("Read spell tome: {}", a_spell->fullName);
 
 	auto regs = OnSpellTomeReadRegSet::GetSingleton();
-	regs->QueueEvent(a_spell);
+	regs->QueueEvent(a_book, a_spell);
 }

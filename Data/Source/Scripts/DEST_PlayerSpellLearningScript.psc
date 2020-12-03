@@ -8,6 +8,6 @@ Event OnPlayerLoadGame()
 	DEST_ReferenceAliasExt.RegisterForSpellTomeReadEvent(self)
 EndEvent
 
-Event OnSpellTomeRead(Spell akSpell)
+Event OnSpellTomeRead(Book akBook, Spell akSpell)
 	Debug.Notification("Spell Tome read: " + akSpell.GetName())
 EndEvent

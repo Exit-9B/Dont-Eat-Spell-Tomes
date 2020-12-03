@@ -1,5 +1,6 @@
 #include "SpellTomeManager.h"
 #include "Offsets.h"
+#include "Registration.h"
 
 void SpellTomeManager::InstallHooks()
 {
@@ -21,7 +22,12 @@ void SpellTomeManager::InstallHooks()
 	REL::safe_write(hook.address(), patch.getCode(), patch.getSize());
 }
 
-void SpellTomeManager::ReadSpellTome([[maybe_unused]] RE::PlayerCharacter* a_player, RE::SpellItem* a_spell)
+void SpellTomeManager::ReadSpellTome(
+	[[maybe_unused]] RE::PlayerCharacter* a_player,
+	RE::SpellItem* a_spell)
 {
 	logger::info("Read spell book: {}", a_spell->fullName);
+
+	auto regs = OnSpellTomeReadRegSet::GetSingleton();
+	regs->QueueEvent(a_spell);
 }

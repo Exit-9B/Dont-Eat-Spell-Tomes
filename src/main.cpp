@@ -1,4 +1,5 @@
 ﻿#include "Hooks.h"
+#include "Papyrus.h"
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
 {
@@ -53,6 +54,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 
 	SKSE::Init(a_skse);
 	Hooks::Install();
+	Papyrus::Register();
 
 	return true;
 }

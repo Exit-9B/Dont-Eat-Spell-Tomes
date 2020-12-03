@@ -26,7 +26,7 @@ void SpellTomeManager::ReadSpellTome(
 	[[maybe_unused]] RE::PlayerCharacter* a_player,
 	RE::SpellItem* a_spell)
 {
-	logger::info("Read spell book: {}", a_spell->fullName);
+	logger::info("Read spell tome: {}", a_spell->fullName);
 
 	auto regs = OnSpellTomeReadRegSet::GetSingleton();
 	regs->QueueEvent(a_spell);

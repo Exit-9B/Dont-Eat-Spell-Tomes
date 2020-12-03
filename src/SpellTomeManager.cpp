@@ -13,8 +13,9 @@ void SpellTomeManager::InstallHooks()
 			mov(rcx, rdi);
 			mov(rax, addr);
 			call(rax);
+			mov(rsi, 0);
 
-			jmp(hookaddr.getAddress() + 0x6C);
+			jmp(hookaddr.getAddress() + 0x70);
 		}
 	};
 	Patch patch{ SKSE::unrestricted_cast<std::uintptr_t>(ReadSpellTome) };

@@ -1,0 +1,9 @@
+# Ignore compiled Papyrus scripts
+*.pex
+
+# Ignore compiled SKSE plugin
+*.dll
+
+# Ignore bsa and zip file
+*.bsa
+*.zip

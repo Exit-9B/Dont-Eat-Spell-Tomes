@@ -14,14 +14,14 @@ void SpellTomeManager::InstallHooks()
 			mov(rax, addr);
 			call(rax);
 
-			jmp(hookaddr.getAddress() + 0x65);
+			jmp(hookaddr.getAddress() + 0x6C);
 		}
 	};
 	Patch patch{ SKSE::unrestricted_cast<std::uintptr_t>(ReadSpellTome) };
 	patch.ready();
-	assert(patch.getSize() <= 0x4F);
+	assert(patch.getSize() <= 0x56);
 
-	static REL::Relocation<std::uintptr_t> hook{ Offset::TESObjectBook_ProcessBook, 0xEF };
+	static REL::Relocation<std::uintptr_t> hook{ Offset::TESObjectBook_ProcessBook, 0xE8 };
 	REL::safe_write(hook.address(), patch.getCode(), patch.getSize());
 }
 

@@ -30,6 +30,22 @@ void SpellTomeManager::ReadSpellTome(RE::TESObjectBOOK* a_book, RE::SpellItem* a
 {
 	logger::info("Read spell tome: {}", a_spell->fullName);
 
+	RE::TESObjectREFR* container = nullptr;
+
+	auto ui = RE::UI::GetSingleton();
+	auto menu = ui ? ui->GetMenu<RE::ContainerMenu>() : nullptr;
+
+	if (menu)
+	{
+		auto refHandle = menu->GetTargetRefHandle();
+		if (refHandle)
+		{
+			RE::TESObjectREFRPtr refr;
+			RE::LookupReferenceByHandle(refHandle, refr);
+			container = refr.get();
+		}
+	}
+
 	auto regs = OnSpellTomeReadRegSet::GetSingleton();
-	regs->QueueEvent(a_book, a_spell);
+	regs->QueueEvent(a_book, a_spell, container);
 }

@@ -25,7 +25,7 @@
   </PreBuildEvent>
   <ZipFiles Output="Data">
     <ZipFile Name="@modname" RootDir="Data" Compression="deflate">
-      <Include>@filename.esp</Include>
+      <Include>@filename.esl</Include>
       <Include>SKSE\Plugins\@filename.dll</Include>
       <Include NoRecurse="true">Scripts</Include>
       <Include NoRecurse="true">Source\Scripts</Include>

@@ -18,6 +18,7 @@
     <Script>DEST_FormExt.psc</Script>
     <Script>DEST_ReferenceAliasExt.psc</Script>
     <Script>DEST_PlayerSpellLearningScript.psc</Script>
+    <Script>DEST_UIExt.psc</Script>
   </Scripts>
   <PreBuildEvent Description="Copy SKSE plugin to distribution" UseInBuild="true">
     <Command>xcopy "build\Release\@filename.dll" "Data\SKSE\Plugins\@filename.dll*" /Y</Command>

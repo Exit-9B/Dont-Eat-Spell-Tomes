@@ -1,0 +1,35 @@
+<!-- Created with FOMOD Creation Tool 1.7.0.37 [http://www.nexusmods.com/fallout4/mods/6821] --> 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd"> 
+	<moduleName>Don't Eat Spell Tomes</moduleName> 
+	<moduleImage path=":\Projects\Dont-Eat-Spell-Tomes\Data\Fomod\dest_card.png" /> 
+	<requiredInstallFiles> 
+		<file source="SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" /> 
+		<file source="Source\Scripts\DEST_FormExt.psc" destination="Source\Scripts\DEST_FormExt.psc" /> 
+		<file source="Source\Scripts\DEST_ReferenceAliasExt.psc" destination="Source\Scripts\DEST_ReferenceAliasExt.psc" /> 
+		<file source="Source\Scripts\DEST_UIExt.psc" destination="Source\Scripts\DEST_UIExt.psc" /> 
+		<file source="Scripts\DEST_FormExt.pex" destination="Scripts\DEST_FormExt.pex" /> 
+		<file source="Scripts\DEST_ReferenceAliasExt.pex" destination="Scripts\DEST_ReferenceAliasExt.pex" /> 
+		<file source="Scripts\DEST_UIExt.pex" destination="Scripts\DEST_UIExt.pex" /> 
+	</requiredInstallFiles> 
+	<installSteps order="Explicit"> 
+		<installStep name="Choose Components"> 
+			<optionalFileGroups order="Explicit"> 
+				<group name="Example" type="SelectAny"> 
+					<plugins order="Explicit"> 
+						<plugin name="Example"> 
+							<description>Example implementation of a mod that makes spell tomes teach spells like in vanilla but doesn't remove the book.</description> 
+							<files> 
+								<file source="DontEatSpellTomes.esl" destination="DontEatSpellTomes.esl" priority="0" /> 
+								<file source="Source\Scripts\DEST_PlayerSpellLearningScript.psc" destination="Source\Scripts\DEST_PlayerSpellLearningScript.psc" priority="0" /> 
+								<file source="Scripts\DEST_PlayerSpellLearningScript.pex" destination="Scripts\DEST_PlayerSpellLearningScript.pex" priority="0" /> 
+							</files> 
+							<typeDescriptor> 
+								<type name="Optional"/> 
+							</typeDescriptor> 
+						</plugin> 
+					</plugins> 
+				</group> 
+			</optionalFileGroups> 
+		</installStep> 
+	</installSteps> 
+</config>

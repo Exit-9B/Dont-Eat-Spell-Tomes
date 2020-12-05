@@ -1,5 +1,6 @@
 #include "Papyrus.h"
 #include "ReferenceAliasExt.h"
+#include "UIExt.h"
 
 void Papyrus::Register()
 {
@@ -7,4 +8,7 @@ void Papyrus::Register()
 
 	papyrus->Register(ReferenceAliasExt::RegisterFuncs);
 	logger::info("Registered DEST_ReferenceAliasExt"sv);
+
+	papyrus->Register(UIExt::RegisterFuncs);
+	logger::info("Registered DEST_UIExt"sv);
 }

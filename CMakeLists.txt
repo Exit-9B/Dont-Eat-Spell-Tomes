@@ -124,9 +124,12 @@ set(headers
 	src/PCH.h
 	src/Offsets.h
 	src/Hooks.h
+
 	src/Registration.h
 	src/Papyrus.h
 	src/ReferenceAliasExt.h
+	src/UIExt.h
+
 	src/SpellTomeManager.h
 )
 
@@ -134,9 +137,12 @@ set(sources
 	src/main.cpp
 	src/PCH.cpp
 	src/Hooks.cpp
+
 	src/Registration.cpp
 	src/Papyrus.cpp
 	src/ReferenceAliasExt.cpp
+	src/UIExt.cpp
+
 	src/SpellTomeManager.cpp
 )
 

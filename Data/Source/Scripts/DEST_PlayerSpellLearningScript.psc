@@ -1,30 +1,39 @@
 Scriptname DEST_PlayerSpellLearningScript extends ReferenceAlias
 
+import DEST_ReferenceAliasExt
+import DEST_UIExt
+
 Actor PlayerRef
 
 Event OnInit()
 	PlayerRef = Game.GetPlayer()
-	DEST_ReferenceAliasExt.RegisterForSpellTomeReadEvent(self)
+	RegisterForSpellTomeReadEvent(self)
 EndEvent
 
 Event OnPlayerLoadGame()
-	DEST_ReferenceAliasExt.RegisterForSpellTomeReadEvent(self)
+	RegisterForSpellTomeReadEvent(self)
 EndEvent
 
 Event OnSpellTomeRead(Book akBook, Spell akSpell, ObjectReference akContainer)
 
 	if !PlayerRef.HasSpell(akSpell)
+		;/ Don't eat the book
 		if akContainer
 			akContainer.RemoveItem(akBook, 1, abSilent = true)
 		else
 			PlayerRef.RemoveItem(akBook, 1, abSilent = true)
 		endif
+		/;
 
 		string sSpellAdded = Game.GetGameSettingString("sSpellAdded")
-		Debug.Notification(sSpellAdded + ": " + akSpell.GetName())
-		PlayerRef.AddSpell(akSpell)
+		string sText = sSpellAdded + ": " + akSpell.GetName()
+		PlayerRef.AddSpell(akSpell, abVerbose = false)
+
+		Notification(sText, "UISpellLearned")
 	else
 		string sAlreadyKnown = Game.GetGameSettingString("sAlreadyKnown")
-		Debug.Notification(sAlreadyKnown + " " + akSpell.GetName())
+		string sText = sAlreadyKnown + " " + akSpell.GetName()
+
+		Notification(sText)
 	endif
 EndEvent

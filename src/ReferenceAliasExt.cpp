@@ -5,7 +5,7 @@
 vm->RegisterFunction(#fn_name ## sv, script_name, fn_name, true)
 
 void ReferenceAliasExt::RegisterForSpellTomeReadEvent(
-	VM * a_vm, StackID a_stackID, RE::StaticFunctionTag*,
+	VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*,
 	const RE::BGSRefAlias* a_alias)
 {
 	if (!a_alias)
@@ -19,7 +19,7 @@ void ReferenceAliasExt::RegisterForSpellTomeReadEvent(
 }
 
 void ReferenceAliasExt::UnregisterForSpellTomeReadEvent(
-	VM * a_vm, StackID a_stackID, RE::StaticFunctionTag*,
+	VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*,
 	const RE::BGSRefAlias* a_alias)
 {
 	if (!a_alias)

@@ -1,4 +1,4 @@
-Scriptname DEST_FormExt
+Scriptname DEST_FormExt Hidden
 
 Function RegisterForSpellTomeReadEvent(Form akForm) global native
 

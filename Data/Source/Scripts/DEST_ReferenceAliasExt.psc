@@ -1,4 +1,4 @@
-Scriptname DEST_ReferenceAliasExt
+Scriptname DEST_ReferenceAliasExt Hidden
 
 Function RegisterForSpellTomeReadEvent(ReferenceAlias akAlias) global native
 

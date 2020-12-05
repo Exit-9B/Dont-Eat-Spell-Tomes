@@ -5,7 +5,7 @@
 vm->RegisterFunction(#fn_name ## sv, script_name, fn_name, true)
 
 void FormExt::RegisterForSpellTomeReadEvent(
-	VM * a_vm, StackID a_stackID, RE::StaticFunctionTag*,
+	VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*,
 	const RE::TESForm* a_form)
 {
 	if (!a_form)
@@ -19,7 +19,7 @@ void FormExt::RegisterForSpellTomeReadEvent(
 }
 
 void FormExt::UnregisterForSpellTomeReadEvent(
-	VM * a_vm, StackID a_stackID, RE::StaticFunctionTag*,
+	VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*,
 	const RE::TESForm* a_form)
 {
 	if (!a_form)

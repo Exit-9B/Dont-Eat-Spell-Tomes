@@ -4,7 +4,7 @@
   Flags="TESV_Papyrus_Flags.flg"
   Output="Data\Scripts"
   Game="sse"
-  Optimize="true" Anonymize="true" Package="true" Zip="false">
+  Optimize="true" Anonymize="true" Package="false" Zip="true">
   <Variables>
     <Variable Name="modname" Value="Don't Eat Spell Tomes"/>
     <Variable Name="filename" Value="DontEatSpellTomes"/>
@@ -23,16 +23,11 @@
   <PreBuildEvent Description="Copy SKSE plugin to distribution" UseInBuild="true">
     <Command>xcopy "build\Release\@filename.dll" "Data\SKSE\Plugins\@filename.dll*" /Y</Command>
   </PreBuildEvent>
-  <Packages Output="Data">
-    <Package Name="@filename" RootDir="Data">
-      <Include NoRecurse="true">Scripts</Include>
-    </Package>
-  </Packages>
   <ZipFiles Output="Data">
     <ZipFile Name="@modname" RootDir="Data" Compression="deflate">
       <Include>@filename.esp</Include>
-      <Include>@filename.bsa</Include>
       <Include>SKSE\Plugins\@filename.dll</Include>
+      <Include NoRecurse="true">Scripts</Include>
       <Include NoRecurse="true">Source\Scripts</Include>
     </ZipFile>
   </ZipFiles>

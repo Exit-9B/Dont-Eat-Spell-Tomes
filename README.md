@@ -1,4 +1,4 @@
-Prevents learning spells instantly from spell tomes
+Resource to allow mods to control how spell tomes work
 
 ## Requirements
 * [CMake](https://cmake.org/)

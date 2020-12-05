@@ -46,10 +46,7 @@ void SpellTomeManager::ReadSpellTome(RE::TESObjectBOOK* a_book, RE::SpellItem* a
 			RE::TESObjectREFRPtr refr;
 			RE::LookupReferenceByHandle(refHandle, refr);
 
-			if (refr)
-			{
-				container = refr.get();
-			}
+			container = refr.get();
 		}
 	}
 

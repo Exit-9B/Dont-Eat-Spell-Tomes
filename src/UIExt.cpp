@@ -10,7 +10,9 @@ void UIExt::Notification(
 	std::string a_soundID,
 	bool a_cancelIfAlreadyQueued)
 {
-	RE::DebugNotification(a_notificationText.c_str(), a_soundID.c_str(), a_cancelIfAlreadyQueued);
+	const char* text = a_notificationText.c_str();
+	const char* sound = a_soundID.empty() ? nullptr : a_soundID.c_str();
+	RE::DebugNotification(text, sound, a_cancelIfAlreadyQueued);
 }
 
 bool UIExt::RegisterFuncs(VM* a_vm)

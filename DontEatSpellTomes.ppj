@@ -15,6 +15,7 @@
     <Import>%Skyrim64Path%\Data\Source\Scripts</Import>
   </Imports>
   <Scripts>
+    <Script>DEST_FormExt.psc</Script>
     <Script>DEST_ReferenceAliasExt.psc</Script>
     <Script>DEST_PlayerSpellLearningScript.psc</Script>
     <Script>DEST_UIExt.psc</Script>

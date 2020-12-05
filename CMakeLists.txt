@@ -127,6 +127,7 @@ set(headers
 
 	src/Registration.h
 	src/Papyrus.h
+	src/FormExt.h
 	src/ReferenceAliasExt.h
 	src/UIExt.h
 
@@ -140,6 +141,8 @@ set(sources
 
 	src/Registration.cpp
 	src/Papyrus.cpp
+
+	src/FormExt.cpp
 	src/ReferenceAliasExt.cpp
 	src/UIExt.cpp
 

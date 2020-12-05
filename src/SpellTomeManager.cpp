@@ -37,12 +37,19 @@ void SpellTomeManager::ReadSpellTome(RE::TESObjectBOOK* a_book, RE::SpellItem* a
 
 	if (menu)
 	{
-		auto refHandle = menu->GetTargetRefHandle();
-		if (refHandle)
+		RE::GFxValue isViewingContainer;
+		menu->root.Invoke("isViewingContainer", &isViewingContainer);
+
+		if (isViewingContainer.GetBool())
 		{
+			auto refHandle = menu->GetTargetRefHandle();
 			RE::TESObjectREFRPtr refr;
 			RE::LookupReferenceByHandle(refHandle, refr);
-			container = refr.get();
+
+			if (refr)
+			{
+				container = refr.get();
+			}
 		}
 	}
 

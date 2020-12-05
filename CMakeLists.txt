@@ -126,6 +126,7 @@ set(headers
 	src/Hooks.h
 	src/Registration.h
 	src/Papyrus.h
+	src/FormExt.h
 	src/ReferenceAliasExt.h
 	src/SpellTomeManager.h
 )
@@ -136,6 +137,7 @@ set(sources
 	src/Hooks.cpp
 	src/Registration.cpp
 	src/Papyrus.cpp
+	src/FormExt.cpp
 	src/ReferenceAliasExt.cpp
 	src/SpellTomeManager.cpp
 )

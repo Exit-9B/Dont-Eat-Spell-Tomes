@@ -7,6 +7,7 @@ set(sources ${sources}
 	src/Registration.cpp
 	src/Papyrus.cpp
 
+	src/ActiveMagicEffectExt.cpp
 	src/FormExt.cpp
 	src/ReferenceAliasExt.cpp
 	src/UIExt.cpp

@@ -4,9 +4,11 @@
 	<moduleImage path=":\Projects\Dont-Eat-Spell-Tomes\Data\Fomod\dest_card.png" /> 
 	<requiredInstallFiles> 
 		<file source="SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" /> 
+		<file source="Source\Scripts\DEST_ActiveMagicEffectExt.psc" destination="Source\Scripts\DEST_ActiveMagicEffectExt.psc" /> 
 		<file source="Source\Scripts\DEST_FormExt.psc" destination="Source\Scripts\DEST_FormExt.psc" /> 
 		<file source="Source\Scripts\DEST_ReferenceAliasExt.psc" destination="Source\Scripts\DEST_ReferenceAliasExt.psc" /> 
 		<file source="Source\Scripts\DEST_UIExt.psc" destination="Source\Scripts\DEST_UIExt.psc" /> 
+		<file source="Scripts\DEST_ActiveMagicEffectExt.pex" destination="Scripts\DEST_ActiveMagicEffectExt.pex" /> 
 		<file source="Scripts\DEST_FormExt.pex" destination="Scripts\DEST_FormExt.pex" /> 
 		<file source="Scripts\DEST_ReferenceAliasExt.pex" destination="Scripts\DEST_ReferenceAliasExt.pex" /> 
 		<file source="Scripts\DEST_UIExt.pex" destination="Scripts\DEST_UIExt.pex" /> 

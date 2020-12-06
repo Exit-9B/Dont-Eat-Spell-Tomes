@@ -1,4 +1,5 @@
 ﻿#include "Hooks.h"
+#include "Serialization.h"
 #include "Papyrus.h"
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
@@ -55,6 +56,11 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 	SKSE::Init(a_skse);
 	Hooks::Install();
 	Papyrus::Register();
+
+	auto serialization = SKSE::GetSerializationInterface();
+	serialization->SetUniqueID(Serialization::ID);
+	serialization->SetSaveCallback(Serialization::SaveCallback);
+	serialization->SetLoadCallback(Serialization::LoadCallback);
 
 	return true;
 }

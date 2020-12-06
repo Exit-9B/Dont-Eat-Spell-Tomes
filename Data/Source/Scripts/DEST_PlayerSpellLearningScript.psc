@@ -10,10 +10,6 @@ Event OnInit()
 	RegisterForSpellTomeReadEvent(self)
 EndEvent
 
-Event OnPlayerLoadGame()
-	RegisterForSpellTomeReadEvent(self)
-EndEvent
-
 Event OnSpellTomeRead(Book akBook, Spell akSpell, ObjectReference akContainer)
 
 	if !PlayerRef.HasSpell(akSpell)

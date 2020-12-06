@@ -28,7 +28,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	spdlog::set_default_logger(std::move(log));
 	spdlog::set_pattern("%g(%#): [%^%l%$] %v"s);
 
-	logger::info("DontEatSpellTomes v1.0.0");
+	logger::info("DontEatSpellTomes v1.1.0");
 
 	a_info->infoVersion = SKSE::PluginInfo::kVersion;
 	a_info->name = "DontEatSpellTomes";

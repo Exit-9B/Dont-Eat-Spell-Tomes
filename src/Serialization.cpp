@@ -26,7 +26,6 @@ void Serialization::LoadCallback(SKSE::SerializationInterface* a_intfc)
 		{
 			auto regs = OnSpellTomeReadRegSet::GetSingleton();
 			regs->Clear();
-			regs->Load(a_intfc);
 			if (!regs->Load(a_intfc))
 			{
 				logger::critical("Failed to load SpellTomeReadEvent regs!"sv);

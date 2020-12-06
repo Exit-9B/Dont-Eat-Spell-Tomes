@@ -6,6 +6,7 @@ set(headers ${headers}
 
 	src/Registration.h
 	src/Papyrus.h
+	src/ActiveMagicEffectExt.h
 	src/FormExt.h
 	src/ReferenceAliasExt.h
 	src/UIExt.h

@@ -1,4 +1,5 @@
 #include "Papyrus.h"
+#include "ActiveMagicEffectExt.h"
 #include "FormExt.h"
 #include "ReferenceAliasExt.h"
 #include "UIExt.h"
@@ -12,6 +13,9 @@ void Papyrus::Register()
 
 	papyrus->Register(ReferenceAliasExt::RegisterFuncs);
 	logger::info("Registered DEST_ReferenceAliasExt"sv);
+
+	papyrus->Register(ActiveMagicEffectExt::RegisterFuncs);
+	logger::info("Registered DEST_ActiveMagicEffectExt"sv);
 
 	papyrus->Register(UIExt::RegisterFuncs);
 	logger::info("Registered DEST_UIExt"sv);

@@ -54,13 +54,20 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 	logger::info("DontEatSpellTomes loaded");
 
 	SKSE::Init(a_skse);
-	Hooks::Install();
 	Papyrus::Register();
 
 	auto serialization = SKSE::GetSerializationInterface();
 	serialization->SetUniqueID(Serialization::ID);
 	serialization->SetSaveCallback(Serialization::SaveCallback);
 	serialization->SetLoadCallback(Serialization::LoadCallback);
+
+	auto messaging = SKSE::GetMessagingInterface();
+	messaging->RegisterListener([](SKSE::MessagingInterface::Message* a_msg) {
+		if (a_msg->type == SKSE::MessagingInterface::kPostLoad)
+		{
+			Hooks::Install();
+		}
+	});
 
 	return true;
 }

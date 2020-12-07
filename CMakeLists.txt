@@ -7,7 +7,7 @@ set(VCPKG_TARGET_TRIPLET "x64-windows-static" CACHE STRING "")
 
 project(
 	DontEatSpellTomes
-	VERSION 1.1.1
+	VERSION 1.1.2
 	LANGUAGES CXX
 )
 

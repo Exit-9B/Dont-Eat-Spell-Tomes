@@ -6,7 +6,7 @@
   Game="sse"
   Optimize="true" Anonymize="true" Package="false" Zip="true">
   <Variables>
-    <Variable Name="modname" Value="Don't Eat Spell Tomes"/>
+    <Variable Name="modname" Value="Dont Eat Spell Tomes"/>
     <Variable Name="filename" Value="DontEatSpellTomes"/>
   </Variables>
   <Imports>

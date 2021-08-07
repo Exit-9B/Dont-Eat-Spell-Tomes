@@ -2,7 +2,7 @@
 #include "Registration.h"
 
 #define REGISTER(vm, script_name, fn_name) \
-vm->RegisterFunction(#fn_name ## sv, script_name, fn_name, true)
+vm->RegisterFunction(#fn_name ## sv, script_name, fn_name)
 
 void ActiveMagicEffectExt::RegisterForSpellTomeReadEvent(
 	VM* a_vm, StackID a_stackID, RE::StaticFunctionTag*,

@@ -1,4 +1,4 @@
-set(headers ${headers}
+set(HEADERS ${HEADERS}
 	src/PCH.h
 	src/Offsets.h
 	src/Hooks.h
@@ -7,8 +7,9 @@ set(headers ${headers}
 	src/Registration.h
 	src/Papyrus.h
 	src/ActiveMagicEffectExt.h
+	src/AliasExt.h
+	src/DEST.h
 	src/FormExt.h
-	src/ReferenceAliasExt.h
 	src/UIExt.h
 
 	src/SpellTomeManager.h

@@ -1,4 +1,4 @@
-﻿#include "Hooks.h"
+#include "Hooks.h"
 #include "Serialization.h"
 #include "Papyrus.h"
 
@@ -12,7 +12,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 		return false;
 	}
 
-	*path /= "DontEatSpellTomes.log"sv;
+	*path /= std::format("{}.log"sv, Version::PROJECT);
 	auto sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(path->string(), true);
 #endif
 
@@ -26,13 +26,13 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 #endif
 
 	spdlog::set_default_logger(std::move(log));
-	spdlog::set_pattern("%g(%#): [%^%l%$] %v"s);
+	spdlog::set_pattern("%s(%#): [%^%l%$] %v"s);
 
-	logger::info("DontEatSpellTomes v1.1.2");
+	logger::info("{} v{}", Version::PROJECT, Version::NAME);
 
 	a_info->infoVersion = SKSE::PluginInfo::kVersion;
-	a_info->name = "DontEatSpellTomes";
-	a_info->version = 1;
+	a_info->name = Version::PROJECT.data();
+	a_info->version = Version::MAJOR;
 
 	if (a_skse->IsEditor()) {
 		logger::critical("Loaded in editor, marking as incompatible"sv);
@@ -40,7 +40,11 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	}
 
 	const auto ver = a_skse->RuntimeVersion();
+#ifndef SKYRIMVR
 	if (ver < SKSE::RUNTIME_1_5_39) {
+#else
+	if (ver != SKSE::RUNTIME_VR_1_4_15_1) {
+#endif
 		logger::critical(FMT_STRING("Unsupported runtime version {}"), ver.string());
 		return false;
 	}
@@ -51,10 +55,12 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
-	logger::info("DontEatSpellTomes loaded");
+	logger::info("{} loaded"sv, Version::PROJECT);
 
 	SKSE::Init(a_skse);
-	Papyrus::Register();
+
+	auto papyrus = SKSE::GetPapyrusInterface();
+	papyrus->Register(Papyrus::RegisterFuncs);
 
 	auto serialization = SKSE::GetSerializationInterface();
 	serialization->SetUniqueID(Serialization::ID);

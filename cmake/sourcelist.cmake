@@ -1,4 +1,4 @@
-set(sources ${sources}
+set(SOURCES ${SOURCES}
 	src/main.cpp
 	src/PCH.cpp
 	src/Hooks.cpp
@@ -8,8 +8,9 @@ set(sources ${sources}
 	src/Papyrus.cpp
 
 	src/ActiveMagicEffectExt.cpp
+	src/AliasExt.cpp
+	src/DEST.cpp
 	src/FormExt.cpp
-	src/ReferenceAliasExt.cpp
 	src/UIExt.cpp
 
 	src/SpellTomeManager.cpp

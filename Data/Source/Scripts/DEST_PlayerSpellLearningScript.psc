@@ -1,19 +1,19 @@
 Scriptname DEST_PlayerSpellLearningScript extends ReferenceAlias
 
-import DEST_ReferenceAliasExt
+import DEST_AliasExt
 import DEST_UIExt
 
-Actor PlayerRef
+; Creation Kit allows filling of PlayerRef even with no masters
+Actor Property PlayerRef Auto
 
 Event OnInit()
-	PlayerRef = Game.GetPlayer()
 	RegisterForSpellTomeReadEvent(self)
 EndEvent
 
 Event OnSpellTomeRead(Book akBook, Spell akSpell, ObjectReference akContainer)
 
 	if !PlayerRef.HasSpell(akSpell)
-		;/ Don't eat the book
+		;/ Uncomment this to eat the book
 		if akContainer
 			akContainer.RemoveItem(akBook, 1, abSilent = true)
 		else

@@ -28,7 +28,6 @@
   </PreBuildEvent>
   <ZipFiles Output="Data">
     <ZipFile Name="@modname" RootDir="Data" Compression="deflate">
-      <Include>@filename.esp</Include>
       <Include NoRecurse="false">SkyrimSE</Include>
       <Include NoRecurse="false">SkyrimVR</Include>
       <Include NoRecurse="true">Scripts</Include>

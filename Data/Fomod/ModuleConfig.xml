@@ -3,25 +3,69 @@
 	<moduleName>Don't Eat Spell Tomes</moduleName> 
 	<moduleImage path=":\Projects\Dont-Eat-Spell-Tomes\Data\Fomod\dest_card.png" /> 
 	<requiredInstallFiles> 
-		<file source="SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" /> 
-		<file source="Source\Scripts\DEST_ActiveMagicEffectExt.psc" destination="Source\Scripts\DEST_ActiveMagicEffectExt.psc" /> 
-		<file source="Source\Scripts\DEST_FormExt.psc" destination="Source\Scripts\DEST_FormExt.psc" /> 
-		<file source="Source\Scripts\DEST_ReferenceAliasExt.psc" destination="Source\Scripts\DEST_ReferenceAliasExt.psc" /> 
-		<file source="Source\Scripts\DEST_UIExt.psc" destination="Source\Scripts\DEST_UIExt.psc" /> 
+		<file source="Scripts\DEST.pex" destination="Scripts\DEST.pex" /> 
 		<file source="Scripts\DEST_ActiveMagicEffectExt.pex" destination="Scripts\DEST_ActiveMagicEffectExt.pex" /> 
+		<file source="Scripts\DEST_AliasExt.pex" destination="Scripts\DEST_AliasExt.pex" /> 
 		<file source="Scripts\DEST_FormExt.pex" destination="Scripts\DEST_FormExt.pex" /> 
 		<file source="Scripts\DEST_ReferenceAliasExt.pex" destination="Scripts\DEST_ReferenceAliasExt.pex" /> 
 		<file source="Scripts\DEST_UIExt.pex" destination="Scripts\DEST_UIExt.pex" /> 
+		<file source="Source\Scripts\DEST.psc" destination="Source\Scripts\DEST.psc" /> 
+		<file source="Source\Scripts\DEST_ActiveMagicEffectExt.psc" destination="Source\Scripts\DEST_ActiveMagicEffectExt.psc" /> 
+		<file source="Source\Scripts\DEST_AliasExt.psc" destination="Source\Scripts\DEST_AliasExt.psc" /> 
+		<file source="Source\Scripts\DEST_FormExt.psc" destination="Source\Scripts\DEST_FormExt.psc" /> 
+		<file source="Source\Scripts\DEST_ReferenceAliasExt.psc" destination="Source\Scripts\DEST_ReferenceAliasExt.psc" /> 
+		<file source="Source\Scripts\DEST_UIExt.psc" destination="Source\Scripts\DEST_UIExt.psc" /> 
 	</requiredInstallFiles> 
 	<installSteps order="Explicit"> 
+		<installStep name="Choose Game"> 
+			<optionalFileGroups order="Explicit"> 
+				<group name="Game" type="SelectExactlyOne"> 
+					<plugins order="Explicit"> 
+						<plugin name="Skyrim Special Edition"> 
+							<description></description> 
+							<files> 
+								<file source="SkyrimSE\SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" priority="0" /> 
+							</files> 
+							<typeDescriptor> 
+								<type name="Optional"/> 
+							</typeDescriptor> 
+						</plugin> 
+						<plugin name="Skyrim VR"> 
+							<description></description> 
+							<conditionFlags> 
+								<flag name="VR">On</flag> 
+							</conditionFlags> 
+							<files> 
+								<file source="SkyrimVR\SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" priority="0" /> 
+							</files> 
+							<typeDescriptor> 
+								<dependencyType> 
+									<defaultType name="Optional"/> 
+									<patterns> 
+										<pattern> 
+											<dependencies operator="And"> 
+												<fileDependency file="SkyrimVR.esm" state="Active"/> 
+											</dependencies> 
+											<type name="Recommended"/> 
+										</pattern> 
+									</patterns> 
+								</dependencyType> 
+							</typeDescriptor> 
+						</plugin> 
+					</plugins> 
+				</group> 
+			</optionalFileGroups> 
+		</installStep> 
 		<installStep name="Choose Components"> 
 			<optionalFileGroups order="Explicit"> 
 				<group name="Example" type="SelectAny"> 
 					<plugins order="Explicit"> 
 						<plugin name="Example"> 
 							<description>Example implementation of a mod that makes spell tomes teach spells like in vanilla but doesn't remove the book.</description> 
+							<conditionFlags> 
+								<flag name="Example">On</flag> 
+							</conditionFlags> 
 							<files> 
-								<file source="DontEatSpellTomes.esl" destination="DontEatSpellTomes.esl" priority="0" /> 
 								<file source="Source\Scripts\DEST_PlayerSpellLearningScript.psc" destination="Source\Scripts\DEST_PlayerSpellLearningScript.psc" priority="0" /> 
 								<file source="Scripts\DEST_PlayerSpellLearningScript.pex" destination="Scripts\DEST_PlayerSpellLearningScript.pex" priority="0" /> 
 							</files> 
@@ -34,4 +78,35 @@
 			</optionalFileGroups> 
 		</installStep> 
 	</installSteps> 
+	<conditionalFileInstalls> 
+		<patterns> 
+			<pattern> 
+				<dependencies operator="And"> 
+					<flagDependency flag="Example" value="On"/> 
+				</dependencies> 
+				<files> 
+					<file source="Source\Scripts\DEST_PlayerSpellLearningScript.psc" destination="Source\Scripts\DEST_PlayerSpellLearningScript.psc" priority="0" /> 
+					<file source="Scripts\DEST_PlayerSpellLearningScript.pex" destination="Scripts\DEST_PlayerSpellLearningScript.pex" priority="0" /> 
+				</files> 
+			</pattern> 
+			<pattern> 
+				<dependencies operator="And"> 
+					<flagDependency flag="Example" value="On"/> 
+					<flagDependency flag="VR" value="Off"/> 
+				</dependencies> 
+				<files> 
+					<file source="SkyrimSE\DontEatSpellTomes.esp" destination="DontEatSpellTomes.esp" priority="0" /> 
+				</files> 
+			</pattern> 
+			<pattern> 
+				<dependencies operator="And"> 
+					<flagDependency flag="Example" value="On"/> 
+					<flagDependency flag="VR" value="On"/> 
+				</dependencies> 
+				<files> 
+					<file source="SkyrimVR\DontEatSpellTomes.esp" destination="DontEatSpellTomes.esp" priority="0" /> 
+				</files> 
+			</pattern> 
+		</patterns> 
+	</conditionalFileInstalls> 
 </config>

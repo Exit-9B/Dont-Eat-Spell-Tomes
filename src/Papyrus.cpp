@@ -1,22 +1,27 @@
 #include "Papyrus.h"
+
 #include "ActiveMagicEffectExt.h"
+#include "AliasExt.h"
+#include "DEST.h"
 #include "FormExt.h"
-#include "ReferenceAliasExt.h"
 #include "UIExt.h"
 
-void Papyrus::Register()
+bool Papyrus::RegisterFuncs(VM* a_vm)
 {
-	auto papyrus = SKSE::GetPapyrusInterface();
+	DEST::RegisterFuncs(a_vm);
+	logger::info("Registered DEST"sv);
 
-	papyrus->Register(FormExt::RegisterFuncs);
-	logger::info("Registered DEST_FormExt"sv);
-
-	papyrus->Register(ReferenceAliasExt::RegisterFuncs);
-	logger::info("Registered DEST_ReferenceAliasExt"sv);
-
-	papyrus->Register(ActiveMagicEffectExt::RegisterFuncs);
+	ActiveMagicEffectExt::RegisterFuncs(a_vm);
 	logger::info("Registered DEST_ActiveMagicEffectExt"sv);
 
-	papyrus->Register(UIExt::RegisterFuncs);
+	AliasExt::RegisterFuncs(a_vm);
+	logger::info("Registered DEST_AliasExt"sv);
+
+	FormExt::RegisterFuncs(a_vm);
+	logger::info("Registered DEST_FormExt"sv);
+
+	UIExt::RegisterFuncs(a_vm);
 	logger::info("Registered DEST_UIExt"sv);
+
+	return true;
 }

@@ -8,7 +8,6 @@
   <Variables>
     <Variable Name="modname" Value="Dont Eat Spell Tomes"/>
     <Variable Name="filename" Value="DontEatSpellTomes"/>
-    <Variable Name="temppath" Value="temp"/>
   </Variables>
   <Imports>
     <Import>Data\Source\Scripts</Import>

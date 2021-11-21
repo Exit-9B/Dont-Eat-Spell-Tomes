@@ -22,7 +22,10 @@
 				<group name="Game" type="SelectExactlyOne"> 
 					<plugins order="Explicit"> 
 						<plugin name="Skyrim Special Edition"> 
-							<description></description> 
+							<description>Select this if you are playing Skyrim Special Edition.</description> 
+							<conditionFlags> 
+								<flag name="VR">Off</flag> 
+							</conditionFlags> 
 							<files> 
 								<file source="SkyrimSE\SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" priority="0" /> 
 							</files> 
@@ -31,7 +34,7 @@
 							</typeDescriptor> 
 						</plugin> 
 						<plugin name="Skyrim VR"> 
-							<description></description> 
+							<description>Select this if you are playing Skyrim VR.</description> 
 							<conditionFlags> 
 								<flag name="VR">On</flag> 
 							</conditionFlags> 

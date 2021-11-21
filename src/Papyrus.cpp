@@ -1,10 +1,10 @@
 #include "Papyrus.h"
 
-#include "ActiveMagicEffectExt.h"
-#include "AliasExt.h"
-#include "DEST.h"
-#include "FormExt.h"
-#include "UIExt.h"
+#include "Papyrus/ActiveMagicEffectExt.h"
+#include "Papyrus/AliasExt.h"
+#include "Papyrus/DEST.h"
+#include "Papyrus/FormExt.h"
+#include "Papyrus/UIExt.h"
 
 bool Papyrus::RegisterFuncs(VM* a_vm)
 {

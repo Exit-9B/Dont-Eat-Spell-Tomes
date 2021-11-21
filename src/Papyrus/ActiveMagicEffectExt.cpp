@@ -1,4 +1,4 @@
-#include "ActiveMagicEffectExt.h"
+#include "Papyrus/ActiveMagicEffectExt.h"
 #include "Registration.h"
 
 #define REGISTER(vm, script_name, fn_name) \

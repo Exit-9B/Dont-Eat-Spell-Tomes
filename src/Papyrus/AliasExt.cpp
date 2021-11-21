@@ -1,4 +1,4 @@
-#include "AliasExt.h"
+#include "Papyrus/AliasExt.h"
 #include "Registration.h"
 
 #define REGISTER(vm, script_name, fn_name) vm->RegisterFunction(#fn_name##sv, script_name, fn_name)

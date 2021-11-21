@@ -2,7 +2,7 @@
 <PapyrusProject
   xmlns="PapyrusProject.xsd"
   Flags="TESV_Papyrus_Flags.flg"
-  Output="Data\Scripts"
+  Output="dist\Data\Scripts"
   Game="sse"
   Optimize="true" Anonymize="true" Package="false" Zip="true">
   <Variables>
@@ -10,7 +10,7 @@
     <Variable Name="filename" Value="DontEatSpellTomes"/>
   </Variables>
   <Imports>
-    <Import>Data\Source\Scripts</Import>
+    <Import>dist\Data\Source\Scripts</Import>
     <Import>%SKSE64Path%\Scripts\Source</Import>
     <Import>%Skyrim64Path%\Data\Source\Scripts</Import>
   </Imports>
@@ -26,8 +26,8 @@
   <PreBuildEvent Description="Build SKSE plugins and set up distribution" UseInBuild="true">
     <Command>PreBuild.bat "@filename"</Command>
   </PreBuildEvent>
-  <ZipFiles Output="Data">
-    <ZipFile Name="@modname" RootDir="Data" Compression="deflate">
+  <ZipFiles Output="dist\Data">
+    <ZipFile Name="@modname" RootDir="dist\Data" Compression="deflate">
       <Include NoRecurse="false">SkyrimSE</Include>
       <Include NoRecurse="false">SkyrimVR</Include>
       <Include NoRecurse="true">Scripts</Include>

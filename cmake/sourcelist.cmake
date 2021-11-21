@@ -1,17 +1,28 @@
 set(SOURCES ${SOURCES}
-	src/main.cpp
-	src/PCH.cpp
+	include/Hooks.h
+	include/Offsets.h
+	include/PCH.h
+	include/Papyrus.h
+	include/Papyrus/ActiveMagicEffectExt.h
+	include/Papyrus/AliasExt.h
+	include/Papyrus/DEST.h
+	include/Papyrus/FormExt.h
+	include/Papyrus/UIExt.h
+	include/Patches.h
+	include/Registration.h
+	include/Serialization.h
+	include/SpellTomeManager.h
 	src/Hooks.cpp
-	src/Serialization.cpp
-
-	src/Registration.cpp
+	src/PCH.cpp
 	src/Papyrus.cpp
-
-	src/ActiveMagicEffectExt.cpp
-	src/AliasExt.cpp
-	src/DEST.cpp
-	src/FormExt.cpp
-	src/UIExt.cpp
-
+	src/Papyrus/ActiveMagicEffectExt.cpp
+	src/Papyrus/AliasExt.cpp
+	src/Papyrus/DEST.cpp
+	src/Papyrus/FormExt.cpp
+	src/Papyrus/UIExt.cpp
+	src/Patches.cpp
+	src/Registration.cpp
+	src/Serialization.cpp
 	src/SpellTomeManager.cpp
+	src/main.cpp
 )

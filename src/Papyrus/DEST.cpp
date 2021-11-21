@@ -1,4 +1,4 @@
-#include "DEST.h"
+#include "Papyrus/DEST.h"
 #include "Registration.h"
 
 #define REGISTER(vm, script_name, fn_name) \

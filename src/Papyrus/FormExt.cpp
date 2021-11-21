@@ -1,4 +1,4 @@
-#include "FormExt.h"
+#include "Papyrus/FormExt.h"
 #include "Registration.h"
 
 #define REGISTER(vm, script_name, fn_name) \

@@ -1,31 +1,11 @@
 #include "SpellTomeManager.h"
 #include "Offsets.h"
+#include "Patches.h"
 #include "Registration.h"
 
 void SpellTomeManager::InstallHooks()
 {
-	struct Patch : public Xbyak::CodeGenerator
-	{
-		Patch(std::uintptr_t addr)
-		{
-			Xbyak::Label hookaddr;
-			L(hookaddr);
-
-			mov(rcx, rdi);
-			mov(rax, addr);
-			call(rax);
-			mov(rsi, 0);
-
-			jmp(hookaddr.getAddress() + 0x70);
-		}
-	};
-	Patch patch{ reinterpret_cast<std::uintptr_t>(ReadSpellTome) };
-	patch.ready();
-	assert(patch.getSize() <= 0x56);
-
-	static REL::Relocation<std::uintptr_t> hook{ Offset::TESObjectBook_ProcessBook.address() +
-												 0xE8 };
-	REL::safe_write(hook.address(), patch.getCode(), patch.getSize());
+	Patch::WriteSpellTomePatch(ReadSpellTome);
 }
 
 void SpellTomeManager::ReadSpellTome(RE::TESObjectBOOK* a_book, RE::SpellItem* a_spell)

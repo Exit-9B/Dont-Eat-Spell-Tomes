@@ -2,14 +2,22 @@
 #include "Serialization.h"
 #include "Papyrus.h"
 
-extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
+void InitLogger()
 {
+	static bool initialized = false;
+	if (!initialized) {
+		initialized = true;
+	}
+	else {
+		return;
+	}
+
 #ifndef NDEBUG
 	auto sink = std::make_shared<spdlog::sinks::msvc_sink_mt>();
 #else
 	auto path = logger::log_directory();
 	if (!path) {
-		return false;
+		return;
 	}
 
 	*path /= std::format("{}.log"sv, Version::PROJECT);
@@ -29,6 +37,25 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	spdlog::set_pattern("%s(%#): [%^%l%$] %v"s);
 
 	logger::info("{} v{}", Version::PROJECT, Version::NAME);
+}
+
+#ifndef SKYRIMVR
+extern "C" DLLEXPORT constinit auto SKSEPlugin_Version =
+[]() {
+	SKSE::PluginVersionData v{};
+	v.pluginVersion = Version::MAJOR;
+	v.PluginName(Version::PROJECT);
+	v.AuthorName("Parapets"sv);
+	v.UsesAddressLibrary(true);
+	return v;
+}();
+
+#else
+
+extern "C" DLLEXPORT bool SKSEAPI
+	SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
+{
+	InitLogger();
 
 	a_info->infoVersion = SKSE::PluginInfo::kVersion;
 	a_info->name = Version::PROJECT.data();
@@ -40,21 +67,18 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const SKSE::QueryInterface* a
 	}
 
 	const auto ver = a_skse->RuntimeVersion();
-#ifndef SKYRIMVR
-	if (ver < SKSE::RUNTIME_1_5_39) {
-#else
 	if (ver != SKSE::RUNTIME_VR_1_4_15_1) {
-#endif
 		logger::critical(FMT_STRING("Unsupported runtime version {}"), ver.string());
 		return false;
 	}
 
 	return true;
 }
-
+#endif
 
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
+	InitLogger();
 	logger::info("{} loaded"sv, Version::PROJECT);
 
 	SKSE::Init(a_skse);

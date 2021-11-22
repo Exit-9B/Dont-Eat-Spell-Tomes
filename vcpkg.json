@@ -1,13 +1,12 @@
 {
   "name": "donteatspelltomes",
-  "version-string": "1.2.0",
+  "version-string": "1.2.1",
   "description": "Resource to allow mods to control how spell tomes work",
   "homepage": "https://github.com/Exit-9B/Dont-Eat-Spell-Tomes",
   "license": "MIT",
   "dependencies": [
-    "boost-atomic",
     "boost-stl-interfaces",
-    "span-lite",
+    "rsm-binary-io",
     "spdlog",
     "xbyak"
   ]

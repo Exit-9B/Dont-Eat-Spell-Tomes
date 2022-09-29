@@ -22,13 +22,18 @@ bool Patch::WriteSpellTomePatch(ReadSpellTomeCallback* a_callback)
 
 	// SkyrimSE 1.6.318.0: 0x2392A0 + 0x11D
 	std::uintptr_t hookAddr = Offset::TESObjectBOOK::ProcessBook.address() + 0x11D;
+
+	auto pattern = REL::make_pattern<"48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ??">();
+	if (!pattern.match(hookAddr)) {
+		util::report_and_fail("Binary did not match expected, failed to install"sv);
+	}
+
 	std::uintptr_t funcAddr = reinterpret_cast<std::uintptr_t>(a_callback);
 	Patch patch{ funcAddr };
 	patch.ready();
 
 	if (patch.getSize() > 0x56) {
-		logger::critical("Patch was too large, failed to install"sv);
-		return false;
+		util::report_and_fail("Patch was too large, failed to install"sv);
 	}
 
 	REL::safe_fill(hookAddr, REL::NOP, 0x56);
@@ -61,15 +66,19 @@ bool Patch::WriteSpellTomePatch(ReadSpellTomeCallback* a_callback)
 	// SkyrimSE 1.5.97.0: 0x229EF0 + 0xE8
 	// SkyrimVR 1.4.15.1: 0x23B240 + 0xE8
 	std::uintptr_t hookAddr = Offset::TESObjectBOOK::ProcessBook.address() + 0xE8;
+
+	auto pattern = REL::make_pattern<"48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ??">();
+	if (!pattern.match(hookAddr)) {
+		util::report_and_fail("Binary did not match expected, failed to install"sv);
+	}
+
 	std::uintptr_t funcAddr = reinterpret_cast<std::uintptr_t>(a_callback);
 	Patch patch{ funcAddr };
 	patch.ready();
 
 	if (patch.getSize() > 0x56) {
-		logger::critical("Patch was too large, failed to install"sv);
-		return false;
+		util::report_and_fail("Patch was too large, failed to install"sv);
 	}
-	assert(patch.getSize() <= 0x56);
 
 	REL::safe_fill(hookAddr, REL::NOP, 0x56);
 	REL::safe_write(hookAddr, patch.getCode(), patch.getSize());

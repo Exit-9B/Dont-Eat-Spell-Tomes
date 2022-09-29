@@ -28,6 +28,7 @@
 							</conditionFlags> 
 							<files> 
 								<file source="SkyrimSE\SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" priority="0" /> 
+								<file source="SkyrimSE\SKSE\Plugins\DontEatSpellTomes.pdb" destination="SKSE\Plugins\DontEatSpellTomes.pdb" priority="0" /> 
 							</files> 
 							<typeDescriptor> 
 								<type name="Optional"/> 
@@ -40,6 +41,7 @@
 							</conditionFlags> 
 							<files> 
 								<file source="SkyrimVR\SKSE\Plugins\DontEatSpellTomes.dll" destination="SKSE\Plugins\DontEatSpellTomes.dll" priority="0" /> 
+								<file source="SkyrimVR\SKSE\Plugins\DontEatSpellTomes.pdb" destination="SKSE\Plugins\DontEatSpellTomes.pdb" priority="0" /> 
 							</files> 
 							<typeDescriptor> 
 								<dependencyType> 

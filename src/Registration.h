@@ -1,6 +1,6 @@
 #pragma once
 
-class OnSpellTomeReadRegSet :
+class OnSpellTomeReadRegSet final :
 	public SKSE::RegistrationSet<RE::TESObjectBOOK*, RE::SpellItem*, RE::TESObjectREFR*>
 {
 public:

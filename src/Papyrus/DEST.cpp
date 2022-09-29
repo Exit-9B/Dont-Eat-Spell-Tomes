@@ -6,7 +6,7 @@ vm->RegisterFunction(#fn_name##sv, script_name, fn_name)
 
 int DEST::GetAPIVersion(RE::StaticFunctionTag*)
 {
-	return Version::API;
+	return Plugin::API_VERSION;
 }
 
 void DEST::SendSpellTomeReadEvent(

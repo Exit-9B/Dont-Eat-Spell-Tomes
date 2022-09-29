@@ -1,9 +1,8 @@
 <fomod> 
 	<Name>Don't Eat Spell Tomes</Name> 
 	<Author>Parapets</Author> 
-	<Version>1.2.1</Version> 
 	<Website>https://www.nexusmods.com/skyrimspecialedition/mods/43095</Website> 
-	<Description>This is a modder's resource that allows mods to implement custom behavior when the player uses spell tomes.</Description> 
+	<Description>This is an API that allows mods to implement custom behavior when the player uses spell tomes.</Description> 
 	<Groups>
 		<element>Modders Resources and Tutorials</element>
 	</Groups> 

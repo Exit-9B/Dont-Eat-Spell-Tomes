@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.24)
 
 project(
     DontEatSpellTomes
@@ -11,138 +11,34 @@ set(API_VERSION 2)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
-	message(
-		FATAL_ERROR
-			"In-source builds are not allowed."
-	)
-endif()
-
-option(BUILD_SKYRIMVR "Build the mod for Skyrim VR" OFF)
-
-if(CMAKE_GENERATOR MATCHES "Visual Studio")
-	option(CMAKE_VS_INCLUDE_INSTALL_TO_DEFAULT_BUILD "Include INSTALL target to default build." OFF)
-endif()
-
-get_filename_component(
-	Skyrim64Path
-	"[HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Skyrim Special Edition;installed path]"
-	ABSOLUTE CACHE
-)
-
-get_filename_component(
-	SkyrimVRPath
-	"[HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Skyrim VR;installed path]"
-	ABSOLUTE CACHE
-)
-
-if(BUILD_SKYRIMVR)
-	add_compile_definitions(SKYRIMVR)
-	set(GAME_DIR ${SkyrimVRPath})
-else()
-	set(GAME_DIR ${Skyrim64Path})
-endif()
-
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-	set(CMAKE_INSTALL_PREFIX "${GAME_DIR}/Data" CACHE PATH
-		"Install path prefix (e.g. Skyrim Data directory or Mod Organizer virtual directory)."
-		FORCE
-	)
-endif()
-
 list(APPEND CMAKE_IGNORE_PATH "${PROJECT_BINARY_DIR}")
 list(APPEND CMAKE_MODULE_PATH
 	"${PROJECT_SOURCE_DIR}/cmake"
+	"${PROJECT_SOURCE_DIR}/tools/SKSE-CMakeModules/Modules"
 	"${PROJECT_SOURCE_DIR}/tools/BethesdaCMakeModules/Modules"
 )
-
-include(AddCXXFiles)
+include(SKSEPlugin)
 include(Papyrus)
 
-add_library(${PROJECT_NAME} SHARED)
+set(SKSE_USE_XBYAK ON)
+set(SKSE_SUPPORT_VR ON)
 
-target_compile_features(
+SKSEPlugin_Add(
 	${PROJECT_NAME}
-	PRIVATE
-		cxx_std_20
-)
-
-add_cxx_files(${PROJECT_NAME})
-
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/cmake/Plugin.h.in
-	${CMAKE_CURRENT_BINARY_DIR}/src/Plugin.h
-	@ONLY
-)
-
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.rc.in
-	${CMAKE_CURRENT_BINARY_DIR}/version.rc
-	@ONLY
-)
-
-target_sources(
-	${PROJECT_NAME}
-	PRIVATE
-		${CMAKE_CURRENT_BINARY_DIR}/src/Plugin.h
-		${CMAKE_CURRENT_BINARY_DIR}/version.rc
+	SOURCE_DIR src
+	SOURCES
 		.clang-format
 		.editorconfig
 		README.md
 		vcpkg.json
-)
-
-target_precompile_headers(
-	${PROJECT_NAME}
-	PRIVATE
+	PRECOMPILE_HEADERS
 		src/PCH.h
 )
 
-target_include_directories(
+target_compile_definitions(
 	${PROJECT_NAME}
 	PRIVATE
-		${CMAKE_CURRENT_BINARY_DIR}/src
-		${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-	target_compile_options(
-		${PROJECT_NAME}
-		PRIVATE
-			"/sdl"             # Enable Additional Security Checks
-			"/utf-8"           # Set Source and Executable character sets to UTF-8
-			"/Zi"              # Debug Information Format
-
-			"/permissive-"     # Standards conformance
-			"/Zc:preprocessor" # Enable preprocessor conformance mode
-
-			"/wd4200"          # nonstandard extension used : zero-sized array in struct/union
-
-			"$<$<CONFIG:DEBUG>:>"
-			"$<$<CONFIG:RELEASE>:/Zc:inline;/JMC-;/Ob3>"
-	)
-
-	target_link_options(
-		${PROJECT_NAME}
-		PRIVATE
-			"$<$<CONFIG:DEBUG>:/INCREMENTAL;/OPT:NOREF;/OPT:NOICF>"
-			"$<$<CONFIG:RELEASE>:/INCREMENTAL:NO;/OPT:REF;/OPT:ICF;/DEBUG:FULL>"
-	)
-endif()
-
-add_compile_definitions(SKSE_SUPPORT_XBYAK)
-
-add_subdirectory("extern/CommonLibSSE" CommonLibSSE EXCLUDE_FROM_ALL)
-
-find_package(spdlog CONFIG REQUIRED)
-find_package(xbyak CONFIG REQUIRED)
-
-target_link_libraries(
-	${PROJECT_NAME}
-	PRIVATE
-		CommonLibSSE::CommonLibSSE
-		spdlog::spdlog
-		xbyak::xbyak
+		DEST_API_VERSION=${API_VERSION}
 )
 
 file(GLOB SDK_SOURCES
@@ -151,35 +47,45 @@ file(GLOB SDK_SOURCES
 	"scripts/SDK/*.psc"
 )
 
-add_papyrus(
+Papyrus_Add(
 	"SDK"
-	GAME ${Skyrim64Path}
+	GAME ${SkyrimSE_PATH}
 	IMPORTS
 		"${CMAKE_CURRENT_SOURCE_DIR}/scripts/SDK"
 		"$ENV{SKSE64Path}/Scripts/Source"
 	SOURCES ${SDK_SOURCES}
 	OPTIMIZE
 	ANONYMIZE
+	COMPONENT Data
 )
 
-source_group("Scripts" FILES ${SDK_SOURCES})
-
-set(Example_SOURCES
-	"${CMAKE_CURRENT_SOURCE_DIR}/scripts/Example/DEST_PlayerSpellLearningScript.psc"
-)
-
-add_papyrus(
+Papyrus_Add(
 	"Example"
-	GAME ${Skyrim64Path}
+	GAME ${SkyrimSE_PATH}
 	IMPORTS
 		"${CMAKE_CURRENT_SOURCE_DIR}/scripts/Example"
 		"${CMAKE_CURRENT_SOURCE_DIR}/scripts/SDK"
 		"$ENV{SKSE64Path}/Scripts/Source"
-	SOURCES ${Example_SOURCES}
+	SOURCES
+		"${CMAKE_CURRENT_SOURCE_DIR}/scripts/Example/DEST_PlayerSpellLearningScript.psc"
 	OPTIMIZE
 	ANONYMIZE
+	COMPONENT Example_Data
 )
 
-source_group("Scripts" FILES ${Example_SOURCES})
+install(
+	FILES
+		"${CMAKE_CURRENT_SOURCE_DIR}/data/$<IF:$<BOOL:BUILD_SKYRIMVR>,SkyrimVR,SkyrimSE>/DontEatSpellTomes.esp"
+	DESTINATION "."
+	COMPONENT Example_Plugin
+)
 
-include(install_files.cmake)
+install(
+	FILES
+		"${CMAKE_CURRENT_SOURCE_DIR}/data/Fomod/info.xml"
+		"${CMAKE_CURRENT_SOURCE_DIR}/data/Fomod/ModuleConfig.xml"
+		"${CMAKE_CURRENT_SOURCE_DIR}/data/Fomod/dest_card.png"
+	DESTINATION "fomod"
+	COMPONENT Fomod
+	EXCLUDE_FROM_ALL
+)
